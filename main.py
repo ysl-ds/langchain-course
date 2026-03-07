@@ -5,8 +5,18 @@ load_dotenv()
 from langchain.agents import create_agent
 from langchain_openai import ChatOpenAI
 from langchain_tavily import TavilySearch
-
+from typing import List
+from pydantic import BaseModel, Field 
 from schemas import AgentResponse
+
+class Source(BaseModel):
+    """Schema for the source of the information"""
+    url: str = Field(description="The url of the source")
+
+class AgentResponse(BaseModel):
+    """Schema for the response of the agent"""
+    answer: str = Field(description="The agent's answer to the user's question")
+    sources: List[Source] = Field(default_factory=list, description="List of sources used to answer the question")
 
 tools = [TavilySearch()]
 llm = ChatOpenAI(model="gpt-4o")
@@ -31,8 +41,9 @@ def main():
         }
     )
     # Access structured response from the agent
-    structured = result.get("structured_response", None)
-    print(structured if structured is not None else result)
+    #structured = result.get("structured_response", None)
+    #print(structured if structured is not None else result)
+    print(result)
 
 
 if __name__ == "__main__":
