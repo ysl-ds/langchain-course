@@ -17,4 +17,5 @@ dependencies = [
     "langchain-text-splitters>=1.1.1",
     "langchainhub>=0.1.21",
     "python-dotenv>=1.1.1",
+    "streamlit>=1.55.0",
 ]

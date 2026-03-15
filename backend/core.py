@@ -1,6 +1,6 @@
 import os
+import sys
 from typing import Any, Dict
-
 from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model
@@ -20,7 +20,6 @@ vectorstore = PineconeVectorStore(
 )
 # Initialize chat model
 model = init_chat_model("gpt-5.2", model_provider="openai")
-
 
 @tool(response_format="content_and_artifact")
 def retrieve_context(query: str):
@@ -58,27 +57,27 @@ def run_llm(query: str) -> Dict[str, Any]:
         "Always cite the sources you use in your answers. "
         "If you cannot find the answer in the retrieved documentation, say so."
     )
-    
+
     agent = create_agent(model, tools=[retrieve_context], system_prompt=system_prompt)
-    
-    # Build messages list
-    messages = [{"role": "user", "content": query}]
-    
-    # Invoke the agent
+
+    #Build messages list
+    messages = [{"role":"user", "content":query}]
+
+    #Invoke the agent
     response = agent.invoke({"messages": messages})
-    
-    # Extract the answer from the last AI message
+
+    # Extract the answer from the last AI Message
     answer = response["messages"][-1].content
-    
+
     # Extract context documents from ToolMessage artifacts
     context_docs = []
     for message in response["messages"]:
         # Check if this is a ToolMessage with artifact
-        if isinstance(message, ToolMessage) and hasattr(message, "artifact"):
-            # The artifact should contain the list of Document objects
+        if isinstance(message, ToolMessage) and hasattr(message,"artifact"):
+            # The artifact should contain the list of the Document objects
             if isinstance(message.artifact, list):
                 context_docs.extend(message.artifact)
-    
+
     return {
         "answer": answer,
         "context": context_docs
