@@ -5,9 +5,11 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "black>=26.3.0",
-    "isort>=8.0.1",
-    "langchain>=1.2.10",
-    "langchain-openai>=1.1.10",
-    "python-dotenv>=1.2.2",
+    "langchain>=0.3.25",
+    "langchain-openai >= 0.3.18",
+    "langchain-tavily >= 0.2.0",
+    "langgraph >= 0.4.7",
+    "python-dotenv >= 1.1.0",
+    "black >= 25.1.0",
+    "isort >= 6.0.1",
 ]
