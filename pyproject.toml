@@ -6,8 +6,10 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "black>=26.3.0",
+    "grandalf>=0.8",
     "isort>=8.0.1",
     "langchain>=1.2.10",
     "langchain-openai>=1.1.10",
+    "langgraph>=1.0.10",
     "python-dotenv>=1.2.2",
 ]
